@@ -1,11 +1,15 @@
 import { Search, X } from "lucide-react";
-import { useApp } from "../../context/AppContext";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { setFilters } from "@/store/financeSlice";
 import { CATEGORIES } from "../../data/mockData";
+import { SORT_OPTIONS } from "@/constants";
 
 export default function TransactionFilters() {
-  const { state, dispatch } = useApp();
-  const { filters } = state;
-  const set = (obj) => dispatch({ type: "SET_FILTER", payload: obj });
+  const dispatch = useAppDispatch();
+  const filters = useAppSelector(state => state.finance.filters);
+
+  // Type safe partially updating function
+  const set = (obj: Parameters<typeof setFilters>[0]) => dispatch(setFilters(obj));
 
   return (
     <div className="flex flex-wrap gap-3 items-center">
@@ -30,19 +34,18 @@ export default function TransactionFilters() {
         {CATEGORIES.map(c => <option key={c}>{c}</option>)}
       </select>
 
-      <select value={filters.type} onChange={e => set({ type: e.target.value })}
+      <select value={filters.type} onChange={e => set({ type: e.target.value as any })}
         className="bg-ink-800 border border-ink-600 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-acid font-body">
         <option value="All">All Types</option>
         <option value="income">Income</option>
         <option value="expense">Expense</option>
       </select>
 
-      <select value={filters.sortBy} onChange={e => set({ sortBy: e.target.value })}
+      <select value={filters.sortBy} onChange={e => set({ sortBy: e.target.value as any })}
         className="bg-ink-800 border border-ink-600 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-acid font-body">
-        <option value="date-desc">Newest First</option>
-        <option value="date-asc">Oldest First</option>
-        <option value="amount-desc">Highest Amount</option>
-        <option value="amount-asc">Lowest Amount</option>
+        {SORT_OPTIONS.map(opt => (
+          <option key={opt.value} value={opt.value}>{opt.label}</option>
+        ))}
       </select>
     </div>
   );
