@@ -11,7 +11,7 @@ const syncMiddleware = createListenerMiddleware();
 
 syncMiddleware.startListening({
   matcher: isAnyOf(addTransaction, deleteTransaction, editTransaction),
-  effect: (action, listenerApi) => {
+  effect: (_action, listenerApi) => {
     const state = listenerApi.getState() as RootState;
     localStorage.setItem("finio_transactions", JSON.stringify(state.finance.transactions));
   }
@@ -19,7 +19,7 @@ syncMiddleware.startListening({
 
 syncMiddleware.startListening({
   actionCreator: setTab,
-  effect: (action, listenerApi) => {
+  effect: (_action, listenerApi) => {
     const state = listenerApi.getState() as RootState;
     localStorage.setItem("finio_active_tab", state.finance.activeTab);
   }
@@ -27,7 +27,7 @@ syncMiddleware.startListening({
 
 syncMiddleware.startListening({
   actionCreator: toggleTheme,
-  effect: (action, listenerApi) => {
+  effect: (_action, listenerApi) => {
     const state = listenerApi.getState() as RootState;
     const theme = state.finance.theme;
     localStorage.setItem("finio_theme", theme);

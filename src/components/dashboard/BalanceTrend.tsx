@@ -7,22 +7,17 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  
 } from "recharts";
-import type { TooltipProps } from "recharts";
 import { trendData } from "../../data/mockData";
 
-// ✅ Define proper tooltip types
-type CustomTooltipProps = TooltipProps<number, string>;
-
-const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
+const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload || payload.length === 0) return null;
 
   return (
     <div className="bg-ink-800 border border-ink-600 rounded-xl p-3 text-xs font-mono">
       <p className="text-white mb-1 font-semibold">{label}</p>
 
-      {payload.map((p, index) => (
+      {payload.map((p: any, index: number) => (
         <p key={index} style={{ color: p.color }}>
           {p.name}: ₹{Number(p.value).toLocaleString("en-IN")}
         </p>

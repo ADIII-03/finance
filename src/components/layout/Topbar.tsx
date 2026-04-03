@@ -2,7 +2,7 @@ import { LayoutDashboard, ArrowLeftRight, Lightbulb, TrendingUp, X, Sun, Moon } 
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setRole, setTab, toggleTheme } from "../../store/financeSlice";
-import type { Role, Tab } from "../../store/financeSlice";
+import type { Role, Tab } from "@/types";
 import { toast } from "sonner";
 
 const nav = [

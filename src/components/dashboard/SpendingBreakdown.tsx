@@ -6,7 +6,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import type { TooltipProps } from "recharts";
 
 import { useAppSelector } from "../../store/hooks";
 import { getCategoryColor, formatCurrency } from "../../utils/helpers";
@@ -69,7 +68,7 @@ export default function SpendingBreakdown() {
 
             {/* ✅ Typed Tooltip */}
             <Tooltip
-              content={({ active, payload }: TooltipProps<number, string>) => {
+              content={({ active, payload }: any) => {
                 if (!active || !payload || payload.length === 0) return null;
 
                 const item = payload[0];
